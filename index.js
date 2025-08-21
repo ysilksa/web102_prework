@@ -66,19 +66,30 @@ addGamesToPage(GAMES_JSON);
 const contributionsCard = document.getElementById("num-contributions");
 
 // use reduce() to count the number of total contributions by summing the backers
-
-
-// set the inner HTML using a template literal and toLocaleString to get a number with commas
-
-
-// grab the amount raised card, then use reduce() to find the total amount raised
-const raisedCard = document.getElementById("total-raised");
+const totalContributions = GAMES_JSON.reduce( (acc, game ) => {
+    return acc + game.backers;
+}, 0);
 
 // set inner HTML using template literal
+contributionsCard.innerHTML = `
+    <p>${totalContributions}</p>
+`
 
+// grab the total raised card element
+const raisedCard = document.getElementById("total-raised");
+
+// calculate total amount raised and set inner HTML
+const totalPledged = GAMES_JSON.reduce((acc, game) => {
+    return acc + game.pledged;
+}, 0);
+
+raisedCard.innerHTML = `
+    <p>$${totalPledged}</p>
+`
 
 // grab number of games card and set its inner HTML
 const gamesCard = document.getElementById("num-games");
+gamesCard.innerHTML = `<p>${GAMES_JSON.length}</p>`
 
 
 /*************************************************************************************
